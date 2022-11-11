@@ -152,4 +152,20 @@ int cmain(unsigned long addr, unsigned long magic)
 	init_process(&user_process_address);
 
 	printk("\nAll Systems Online");
+
+	printk("\nreading...\n");
+
+	uint32_t* target;
+
+	read_sectors_ATA_PIO(target, 0x0, 1);
+
+	int i;
+	i = 0;
+
+	while(i < 128)
+	{
+		printk("%x ", target[i] & 0xFF);
+		printk("%x ", (target[i] >> 8) & 0xFF);
+		i++;
+	}
 }

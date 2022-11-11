@@ -6,23 +6,7 @@ Branches:
 	main: all of the following changes occur here.
 Building:
 
-1.Building userland programs:
-	cd ./user_programs/user2(shell)/
-	./build.sh
-	cp ./user2 ../../iso/boot
+1.Building the kernel:
 
-	cd ./user_programs/totalmem/
-	./build.sh
-
-	cd ./user_programs/ls/
-	./build.sh
-
-	mount disk.img and copy totalmem and ls files to image.
-
-	copy disk.img to /iso/boot
-
-2.Building the kernel:
-
-	make all
-	or make qemu to run
+	make qemu to run
 

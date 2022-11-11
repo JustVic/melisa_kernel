@@ -17,6 +17,8 @@ OBJS += memory.o
 OBJS += proc.o
 OBJS += syscall.o
 OBJS += file.o
+OBJS += ports.o
+OBJS += ata.o
 OBJS += kernel.o
 
 DFILES = $(patsubst %.o,%.d,$(OBJS))

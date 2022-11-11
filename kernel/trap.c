@@ -71,6 +71,9 @@ void handler(struct TrapFrame *tf)
 	//printk(" %d\n", tf->trapno);
 
     switch (tf->trapno) {
+	case 14:
+		eoi();
+		break;
         case 32:
 			timer_handler();
             eoi();
