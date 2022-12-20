@@ -21,7 +21,7 @@ kernel:
 
 
 qemu: $(ISO_FILE)
-	qemu-system-x86_64 -S -s -cdrom $(ISO_FILE) -serial stdio -m 1024 -d int -drive file=hdd.img,format=raw
+	qemu-system-x86_64 -S -s -boot order=d,menu=off -cdrom $(ISO_FILE) -serial stdio -m 1024 -d int -drive file=disk.img,format=raw
 #1024M
 
 

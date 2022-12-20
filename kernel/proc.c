@@ -5,6 +5,10 @@
 #include "lib.h"
 #include "debug.h"
 
+#include "fs/files.h"
+
+
+
 extern struct TSS Tss2; 
 static struct Process process_table[NUM_PROC];
 static int pid_num = 1;
@@ -297,24 +301,38 @@ int fork(void)
 
 int exec(struct Process *process, char* name)
 {
-    int fd;
-    uint32_t size;
-    
-    fd = open_file(process, name);
+    int fd = 0;
+    int fd2 = 0;
+    uint32_t size = 0;
+    uint32_t fsize = 0;
 
-    if (fd == -1) {
+    //name="TOTALMEM";
+    //fd = open_file(process, name);
+    name="0:/TOTALMEM";
+    fd2 = fopen(name, "r");
+
+    printk("File Descriptor:%d", fd2);
+    if (fd2 == 0) {
         exit();
     }
 
     memset((void*)0x400000, 0, PAGE_SIZE);
-    size = get_file_size(process, fd);
-    size = read_file(process, fd, (void*)0x400000, size);
-    
-    if (size == 0xffffffff) {
+    //size = get_file_size(process, fd);
+    fsize = fget_file_size(fd2);
+
+    //size = read_file(process, fd, (void*)0x400000, size);
+
+    fread((void*)0x400000, fsize, 1, fd2);
+
+    int* add = 0x400000+fsize-100;
+    printk("Byte %d\n", *add);
+
+    if (fsize == 0xffffffff) {
         exit();
     }
 
-    close_file(process, fd);
+    //close_file(process, fd);
+    fclose(fd2);
 
     memset(process->tf, 0, sizeof(struct TrapFrame));
     process->tf->cs = 0x10|3;
@@ -322,6 +340,8 @@ int exec(struct Process *process, char* name)
     process->tf->ss = 0x18|3;
     process->tf->rsp = 0x400000 + PAGE_SIZE;
     process->tf->rflags = 0x202;
+
+    printk("Exec finifshed\n");
 
     return 0;
 }
