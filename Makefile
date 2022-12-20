@@ -32,6 +32,11 @@ iso: $(ISO_FILE)
 
 $(ISO_FILE): kernel
 	mkdir -p iso/boot/grub
+	cd ./user_programs/user2\(shell\)/; \
+	bash ./build.sh; \
+	cp ./user2 ../../iso/boot; \
+	cd ../../
 	cp grub.cfg iso/boot/grub/
 	cp kernel/kernel iso/boot/
+	cp ./disk.img ./iso/boot
 	$(GRUB_MKRESCUE) -o $(ISO_FILE) iso
