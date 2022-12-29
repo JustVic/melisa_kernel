@@ -17,12 +17,6 @@ Branches:
 	main: all of the following changes occur here.
 Building:
 
-<<<<<<< HEAD
-1.Building the kernel:
-
-	make qemu to run
-=======
 	make all
 	or make qemu to run
->>>>>>> 1a87561355f156202365472a9e0b6004c94904e4
 
