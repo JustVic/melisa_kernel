@@ -3,6 +3,7 @@ It just kernel that has been made by following course: https://www.udemy.com/cou
 Currently the build rpocess is a litle bit messy and of course it is not intended for ordinary users.
 
 What's implemented:
+-multiboot2
 -64-bit
 -IDT and GDT
 -paging
