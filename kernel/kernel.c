@@ -169,6 +169,8 @@ int cmain(unsigned long addr, unsigned long magic)
 	{
 		struct file_stat s;
 		fstat(fd, &s);
+		char* f = kalloc();
+		fread(f, s.filesize, 1, fd);
 		printk("FILESIZE: %d\n", s.filesize);
 
 		fclose(fd);

@@ -19,11 +19,11 @@ static char key_map[256] = {
 };
 
 static char shift_key_map[256] = {
-    0, 1, '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
-    '_', '+', '\b', '\t', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U',
-    'I', 'O', 'P', '{', '}', '\n', 0, 'A', 'S', 'D', 'F', 'G',
-    'H', 'J', 'K', 'L', ':', '"', '~', 0, '|', 'Z', 'X', 'C',
-    'V', 'B', 'N', 'M', '<', '>', '?', 0, '*', 0, ' '
+	0, 1, '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+	'_', '+', '\b', '\t', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U',
+	'I', 'O', 'P', '{', '}', '\n', 0, 'A', 'S', 'D', 'F', 'G',
+	'H', 'J', 'K', 'L', ':', '"', '~', 0, '|', 'Z', 'X', 'C',
+	'V', 'B', 'N', 'M', '<', '>', '?', 0, '*', 0, ' '
 };
 
 static struct KeyboardBuffer key_buffer = { {0}, 0, 0, 500 };
@@ -57,59 +57,59 @@ char read_key_buffer(void)
 
 static char keyboard_read(void)
 {
-    unsigned char scan_code;
-    char ch;
+	unsigned char scan_code;
+	char ch;
 
-    scan_code = in_byte(0x60);
-    
-    if (scan_code == 0xE0) {
-        flag |= E0_SIGN;   
-        return 0;
-    }
+	scan_code = in_byte(0x60);
+	
+	if (scan_code == 0xE0) {
+		flag |= E0_SIGN;   
+		return 0;
+	}
 
-    if (flag & E0_SIGN) {
-        flag &= ~E0_SIGN;
-        return 0;
-    }
+	if (flag & E0_SIGN) {
+		flag &= ~E0_SIGN;
+		return 0;
+	}
 
-    if (scan_code & 0x80) {
-        flag &= ~(shift_code[scan_code]);
-        return 0;
-    }
+	if (scan_code & 0x80) {
+		flag &= ~(shift_code[scan_code]);
+		return 0;
+	}
 
-    flag |= shift_code[scan_code];
-    flag ^= lock_code[scan_code];
+	flag |= shift_code[scan_code];
+	flag ^= lock_code[scan_code];
 
-    if (flag & SHIFT) {
-        ch = shift_key_map[scan_code];
-    }
-    else {
-        ch = key_map[scan_code];
-    }
+	if (flag & SHIFT) {
+		ch = shift_key_map[scan_code];
+	}
+	else {
+		ch = key_map[scan_code];
+	}
 
-    if (flag & CAPS_LOCK) { 
-        if('a' <= ch && ch <= 'z')
-            ch -= 32;
-        else if('A' <= ch && ch <= 'Z')
-            ch += 32;
-    }
+	if (flag & CAPS_LOCK) { 
+		if('a' <= ch && ch <= 'z')
+			ch -= 32;
+		else if('A' <= ch && ch <= 'Z')
+			ch += 32;
+	}
 
-    return ch;
+	return ch;
 }
 
 void keyboard_handler(void)
 {
-    /*char ch[2] = { 0 };
+	/*char ch[2] = { 0 };
 
-    ch[0] = keyboard_read();
+	ch[0] = keyboard_read();
 
-    if (ch[0] > 0) {
-        //printk("%s", ch);
-    }*/
+	if (ch[0] > 0) {
+		//printk("%s", ch);
+	}*/
 	char ch = keyboard_read();
 
-    if (ch > 0) {
-        write_key_buffer(ch);
-        wake_up(-2);
-    }
+	if (ch > 0) {
+		write_key_buffer(ch);
+		wake_up(-2);
+	}
 }

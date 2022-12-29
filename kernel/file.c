@@ -20,6 +20,11 @@ static uint16_t *get_fat_table(void)
 {
     struct BPB* p = get_fs_bpb();
     uint32_t offset = (uint32_t)p->reserved_sector_count * p->bytes_per_sector;
+    printk(" sECTOR_SIZE:%d; ",  p->bytes_per_sector);
+    printk(" rESERVED_SECTOR:%d; ",  (uint32_t)p->reserved_sector_count);
+
+
+
 
     return (uint16_t *)((uint8_t*)p + offset);
 }
@@ -221,6 +226,7 @@ static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t pos
     uint32_t index = cluster_index;
     uint32_t cluster_size = get_cluster_size(); 
     uint32_t count = position / cluster_size;
+    printk("Position:%d; ", position);
     uint32_t offset = position % cluster_size;
 
     for (uint32_t i = 0; i < count; i++) {
@@ -240,6 +246,11 @@ static uint32_t read_raw_data(uint32_t cluster_index, char *buffer, uint32_t pos
     }
 
     while (read_size < size && index < 0xfff7) {
+	printk("WHILE");
+	printk(" read_size: %d; ", read_size);
+	printk(" size: %d; ", size);
+	printk(" index: %d; ", index);
+
         data = (char*)((uint64_t)bpb + get_cluster_offset(index));
 
         if (read_size + cluster_size >= size) {

@@ -2,23 +2,23 @@
 #include "ports.h"
 
 unsigned char inb (unsigned short port) {
-    unsigned char result;
-    __asm__("in %%dx, %%al" : "=a" (result) : "d" (port));
-    return result;
+	unsigned char result;
+	__asm__("in %%dx, %%al" : "=a" (result) : "d" (port));
+	return result;
 }
 
 void outb (unsigned short port, unsigned char data) {
-    __asm__("out %%al, %%dx" : : "a" (data), "d" (port));
+	__asm__("out %%al, %%dx" : : "a" (data), "d" (port));
 }
 
 uint16_t inw (uint16_t port) {
-    uint16_t result;
-    __asm__("in %%dx, %%ax" : "=a" (result) : "d" (port));
-    return result;
+	uint16_t result;
+	__asm__("in %%dx, %%ax" : "=a" (result) : "d" (port));
+	return result;
 }
 
 void outw (unsigned short port, unsigned short data) {
-    __asm__("out %%ax, %%dx" : : "a" (data), "d" (port));
+	__asm__("out %%ax, %%dx" : : "a" (data), "d" (port));
 }
 
 void outl(uint32_t port, uint32_t value) {
@@ -26,7 +26,7 @@ void outl(uint32_t port, uint32_t value) {
 };
 
 uint32_t inl(uint32_t port) {
-    uint32_t result;
-    __asm__ __volatile__("inl %%dx,%%eax":"=a" (result):"d"(port));
-    return result;
+	uint32_t result;
+	__asm__ __volatile__("inl %%dx,%%eax":"=a" (result):"d"(port));
+	return result;
 }

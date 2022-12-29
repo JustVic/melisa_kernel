@@ -6,18 +6,18 @@
 #include "stdbool.h"
 
 struct E820 {
-    uint64_t address;
-    uint64_t length;
-    uint32_t type;
+	uint64_t address;
+	uint64_t length;
+	uint32_t type;
 } __attribute__((packed));
 
 struct FreeMemRegion {
-    uint64_t address;
-    uint64_t length;
+	uint64_t address;
+	uint64_t length;
 };
 
 struct Page {
-    struct Page* next;
+	struct Page* next;
 };
 
 typedef uint64_t PDE;

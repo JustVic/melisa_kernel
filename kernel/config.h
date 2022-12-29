@@ -1,0 +1,13 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define M_TOTAL_INTERRUPTS 512
+
+#define M_SECTOR_SIZE 512
+
+#define M_MAX_FILESYSTEMS 12
+#define M_MAX_FILE_DESCRIPTORS 512
+
+#define M_MAX_PATH 108
+
+#endif
