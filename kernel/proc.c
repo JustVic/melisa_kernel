@@ -5,6 +5,10 @@
 #include "lib.h"
 #include "debug.h"
 
+#include "fs/files.h"
+
+
+
 extern struct TSS Tss2; 
 static struct Process process_table[NUM_PROC];
 static int pid_num = 1;
@@ -297,24 +301,27 @@ int fork(void)
 
 int exec(struct Process *process, char* name)
 {
-    int fd;
-    uint32_t size;
-    
-    fd = open_file(process, name);
+    int fd = 0;
+    uint32_t fsize = 0;
 
-    if (fd == -1) {
+    fd = fopen(name, "r");
+
+    if (fd == 0) {
         exit();
     }
 
     memset((void*)0x400000, 0, PAGE_SIZE);
-    size = get_file_size(process, fd);
-    size = read_file(process, fd, (void*)0x400000, size);
-    
-    if (size == 0xffffffff) {
+
+    fsize = fget_file_size(fd);
+
+    fread((void*)0x400000, fsize, 1, fd);
+
+    if (fsize == 0xffffffff) {
         exit();
     }
 
-    close_file(process, fd);
+ //   close_file(process, fd);
+    fclose(fd);
 
     memset(process->tf, 0, sizeof(struct TrapFrame));
     process->tf->cs = 0x10|3;

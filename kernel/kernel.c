@@ -6,6 +6,10 @@
 #include "proc.h"
 #include "syscall.h"
 
+#include "fs/pparser.h"
+#include "fs/files.h"
+#include "disk/disc.h"
+
 extern char bss_start;
 extern char bss_end;
 
@@ -147,9 +151,28 @@ int cmain(unsigned long addr, unsigned long magic)
 
 	init_system_call();
 
+	//init old in RAM fat filesystem
 	init_fs(&filesystem_address);
 
 	init_process(&user_process_address);
 
-	printk("\nAll Systems Online");
+	printk("\nAll Systems Online\n");
+
+    	// Initialize new filesystems
+	fs_init();
+
+	disk_search_and_init();
+
+	int fd = fopen("0:/LS", "r");
+
+	if(fd)
+	{
+		struct file_stat s;
+		fstat(fd, &s);
+		char* f = kalloc();
+		fread(f, s.filesize, 1, fd);
+		printk("FILESIZE: %d\n", s.filesize);
+
+		fclose(fd);
+	}
 }

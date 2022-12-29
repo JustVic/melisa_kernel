@@ -1,5 +1,5 @@
 CC=gcc
-SHARED_FLAGS = -fno-builtin -nostdlib -ffreestanding -g \
+SHARED_FLAGS = -fno-stack-protector -fno-builtin -nostdlib -ffreestanding -g \
                -I. -MMD -mno-red-zone -mcmodel=large -fno-pie
 CFLAGS = $(SHARED_FLAGS)
 ASFLAGS = $(SHARED_FLAGS) -Wa,--divide
@@ -16,7 +16,17 @@ OBJS += debug.o
 OBJS += memory.o
 OBJS += proc.o
 OBJS += syscall.o
+OBJS += fs/string.o
+OBJS += fs/files.o
+OBJS += fs/fat/fat16.o
 OBJS += file.o
+OBJS += ports.o
+OBJS += disk/disc.o
+OBJS += fs/pparser.o
+OBJS += disk/streamer.o
+
+
+
 OBJS += kernel.o
 
 DFILES = $(patsubst %.o,%.d,$(OBJS))

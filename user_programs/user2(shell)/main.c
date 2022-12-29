@@ -67,10 +67,26 @@ int main(void)
 		memset(buffer, 0, 100);
 		buffer_size = read_cmd(buffer);
 
+
+		//adding disk number path-------
+		char *full_name="0:/";
+
+		int i,j;
+		i=3;
+
+		for (j = 0; buffer[j] != '\0' && j < sizeof(buffer); j++)
+		{
+			full_name[i + j] = buffer[j];
+		}
+
+		full_name[i + j] = '\0';
+		//---------------------------
+
+
 		if (buffer_size == 0)
 			continue;
 
-		int fd = open_file(buffer);
+		int fd = open_file(full_name);
 		if (fd == -1) {
 			printf("Command not found\n");
 		}
@@ -78,7 +94,7 @@ int main(void)
 			close_file(fd);
 			int pid = fork();
 			if (pid == 0) {
-				exec(buffer);
+				exec(full_name);
 			}
 			else {
 				waitu(pid);

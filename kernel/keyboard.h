@@ -4,10 +4,10 @@
 #include "stdint.h"
 
 struct KeyboardBuffer {
-    char buffer[500];
-    int front;
-    int end;
-    int size;
+	char buffer[500];
+	int front;
+	int end;
+	int size;
 };
 
 #define E0_SIGN (1 << 0)

@@ -56,20 +56,20 @@ static int sys_get_total_memory(int64_t *argptr)
 static int sys_open_file(int64_t *argptr)
 {
 	struct ProcessControl *pc = get_pc();
-	return open_file(pc->current_process, (char*)argptr[0]);
+	return fopen((char*)argptr[0]);
 }
 
 static int sys_read_file(int64_t *argptr)
 {
 	struct ProcessControl *pc = get_pc();
-	return read_file(pc->current_process, argptr[0], (void*)argptr[1],
+	return fread(argptr[0], (void*)argptr[1],
 					 argptr[2]);
 }
 
 static int sys_close_file(int64_t *argptr)
 {
 	struct ProcessControl *pc = get_pc();
-	close_file(pc->current_process, argptr[0]);
+	fclose(argptr[0]);
 
 	return 0;
 }

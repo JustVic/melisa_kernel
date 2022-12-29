@@ -4,9 +4,9 @@
 #define LINE_SIZE 160
 
 struct ScreenBuffer {
-    char* buffer;
-    int column;
-    int row;
+	char* buffer;
+	int column;
+	int row;
 };
 
 int printk(const char *format, ...);
