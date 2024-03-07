@@ -70,12 +70,13 @@ SetTss:
 .global _start64h
 _start64h:
 
-    mov $KERNEL_VMA, %rax
-    #add %rax, init_gdt64_ptr_baseaddr # Adjust the base pointer to high memory address
-	lea init_gdt64_ptr2(%rip), %rbx
-    lgdt (%rbx)#(%rax)         # Reload the GDT relative to its high memory address
+    lea init_gdt64_ptr2(%rip), %rbx
+    lgdt (%rbx)         # Reload the GDT relative to its high memory address
 
-    add %rax, %rsp                    # You were already adjusting the stack, I just moved it
+    movq $KERNEL_VMA, %rax
+    add %rax, %rsp
+
+    add %rax, %rsp      # You were already adjusting the stack, I just moved it
 
     call SetTss
     // Setup segment selectors
@@ -86,13 +87,13 @@ _start64h:
     movw %ax, %gs
     movw %ax, %ss
 
-	//movq $KERNEL_VMA, %rax
-	//addq %rax, %rsp
+    movq $KERNEL_VMA, %rax
+    addq %rax, %rdi
 
-    movq   $0x0, p4_table
-    invlpg 0
+//    movq   $0x0, p4_table
+//    invlpg 0
 
-    call InitPIT
+    //call InitPIT
 
     call InitPIC
 

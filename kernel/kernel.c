@@ -20,7 +20,6 @@ int parse_multiboot(unsigned long addr, unsigned long magic, struct
 {
 	int module_number = 0;
 
-	addr += 0xffff800000000000;
 	if ((int)magic != MULTIBOOT2_BOOTLOADER_MAGIC)
 	{
 		printk ("Invalid magic number: 0x%x\n", (unsigned) magic);
