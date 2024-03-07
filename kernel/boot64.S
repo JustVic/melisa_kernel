@@ -74,9 +74,7 @@ _start64h:
     lgdt (%rbx)         # Reload the GDT relative to its high memory address
 
     movq $KERNEL_VMA, %rax
-    add %rax, %rsp
-
-    add %rax, %rsp      # You were already adjusting the stack, I just moved it
+    add %rax, %rsp    # You were already adjusting the stack, I just moved it
 
     call SetTss
     // Setup segment selectors
