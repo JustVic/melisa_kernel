@@ -15,11 +15,11 @@ header_start:
     .long HEADER_LENGTH
     .long CHECKSUM
 
-    // multiboot tags go here
+    // multiboot tags 
 
     .short MULTIBOOT_HEADER_TAG_END
     .short 0    // flags, none set
-    .long 8     // size, including itself (short + short + long)
+    .long 8     // size, (short + short + long)
 header_end:
 
 // Global Descriptor Table
@@ -27,7 +27,7 @@ header_end:
 
 .align 16
 gdt64:
-	.quad 0x0000000000000000 // 0x00 NULL
+	.quad 0x0000000000000000
 	.quad 0x0020980000000000 // 0x08 KCODE64
 	.quad 0x0020f80000000000
 	.quad 0x0000f20000000000
@@ -49,7 +49,7 @@ gdt64_end:
 init_gdt64_ptr:
         .word gdt64_end - gdt64 - 1
 init_gdt64_ptr_baseaddr:
-        .quad gdt64                     # Change to QUAD from LONG
+        .quad gdt64
 
 
 .global Tss
@@ -120,33 +120,6 @@ error64:
     hlt
 
 .code32
-set_up_page_tables:
-
-/*    movl $p3_table, %eax
-    orl $0b11, %eax       // present + writable
-    mov %eax, p4_table
-    movl $0b10000011, p3_table*/
-
-/*    movl $1, %ebx
-    movl $0b10000011, %eax
-    movl %eax, p3_table(,%ebx,8)
-
-    movl $510, %ebx
-    movl p3_table, %eax
-    movl %eax, p3_table(,%ebx,8)
-
-    movl $511, %ebx
-    movl p3_table, %eax
-    movl %eax, p3_table(,%ebx,8)
-
-
-    movl $511, %ebx
-    movl $p3_table, %eax
-    orl $0b11, %eax
-    movl %eax, p4_table(,%ebx,8)*/
-
-    ret
-
 enable_paging:
     // load P4 to cr3 register (cpu uses this to access the P4 table)
     movl $(p4_table), %eax
@@ -222,7 +195,7 @@ no_long_mode:
     mov $'2', %al
     jmp error
 
-// Check for SSE and enable it. If it's not supported throw error "a".
+// Check for SSE and enable it. If it's not supported throw a error.
 set_up_SSE:
     // check for SSE
     movl $0x1, %eax
