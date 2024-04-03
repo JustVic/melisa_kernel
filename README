@@ -1,6 +1,4 @@
-It just kernel that has been made by following course: https://www.udemy.com/course/writing-your-own-operating-system-from-scratch/. But I used gnu assembler and grub as a loader instead nasm and self-written loader.
-
-Currently the build rpocess is a litle bit messy and of course it is not intended for ordinary users.
+Diy kernel. I used gnu assembler and grub as a loader.
 
 What's implemented:
 -multiboot2
@@ -11,10 +9,9 @@ What's implemented:
 -disk(ATA PIO) driver
 -fat16 filesystem
 
-May it be Something new and something simple.
 
-Branches:
-	original: kernel just after the course.
+May it be Something new and something simple read and understand. I build it according to my knowledge to study computer devices and in my free time, which is not much, so everything can be built from dirt and sticks, if you know how do it better you can always help :)
+
 	main: all of the following changes occur here.
 Building:
 
