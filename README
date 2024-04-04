@@ -12,9 +12,13 @@ What's implemented:
 
 May it be Something new and something simple to read and understand. I build it according to my knowledge to study computer devices and in my free time, which is not much, so everything can be built from dirt and sticks, if you know how do it better you can always help :)
 
-	main: all of the following changes occur here.
+For each solved issue I can pay 5$ in monero unless more are specified. If I do not have such an opportunity, I will remove this inscription.
+
 Building:
 
 	make all
 	or make qemu to run
+
+We ask that contributors sign a Contributor Assignment Agreement. Before make contributions you need to add yourself to people.md file. And by adding yourself to people.md file you are agreeing to Melisa Kernel Contributor Assignment Agreement located in the caa.md file8.
+
 
