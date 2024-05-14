@@ -45,9 +45,6 @@ Tss2:
 
 .extern init_gdt64_ptr_baseaddr
 .extern init_gdt64_ptr
-.extern Tss
-.extern TssDesc
-
 
 .code64
 
